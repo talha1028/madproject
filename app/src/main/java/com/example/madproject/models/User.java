@@ -1,0 +1,223 @@
+package com.example.madproject.models;
+
+import com.google.firebase.firestore.Exclude;
+
+public class User {
+    private String userId;
+    private String email;
+    private String fullName;
+    private String phoneNumber;
+    private String address;
+    private String city;
+    private String userType; // "client" or "contractor"
+    private String profilePictureUrl;
+    private long createdAt;
+    private long lastLogin;
+
+    // Contractor-specific fields (null for clients)
+    private String category; // e.g., "Plumber", "Electrician", "Mason"
+    private String bio;
+    private int experienceYears;
+    private double hourlyRate;
+    private double rating;
+    private int totalReviews;
+    private int completedProjects;
+
+    // Client-specific fields (null for contractors)
+    private int activeJobs;
+    private int completedJobs;
+    private double totalSpent;
+
+    // Required empty constructor for Firestore
+    public User() {
+    }
+
+    // Constructor for Client
+    public User(String userId, String email, String fullName, String phoneNumber, String userType) {
+        this.userId = userId;
+        this.email = email;
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.userType = userType;
+        this.createdAt = System.currentTimeMillis();
+        this.lastLogin = System.currentTimeMillis();
+        this.rating = 0.0;
+        this.totalReviews = 0;
+        this.completedProjects = 0;
+        this.activeJobs = 0;
+        this.completedJobs = 0;
+        this.totalSpent = 0.0;
+    }
+
+    // Getters and Setters
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
+    }
+
+    public long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public long getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(long lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public int getExperienceYears() {
+        return experienceYears;
+    }
+
+    public void setExperienceYears(int experienceYears) {
+        this.experienceYears = experienceYears;
+    }
+
+    public double getHourlyRate() {
+        return hourlyRate;
+    }
+
+    public void setHourlyRate(double hourlyRate) {
+        this.hourlyRate = hourlyRate;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public int getTotalReviews() {
+        return totalReviews;
+    }
+
+    public void setTotalReviews(int totalReviews) {
+        this.totalReviews = totalReviews;
+    }
+
+    public int getCompletedProjects() {
+        return completedProjects;
+    }
+
+    public void setCompletedProjects(int completedProjects) {
+        this.completedProjects = completedProjects;
+    }
+
+    public int getActiveJobs() {
+        return activeJobs;
+    }
+
+    public void setActiveJobs(int activeJobs) {
+        this.activeJobs = activeJobs;
+    }
+
+    public int getCompletedJobs() {
+        return completedJobs;
+    }
+
+    public void setCompletedJobs(int completedJobs) {
+        this.completedJobs = completedJobs;
+    }
+
+    public double getTotalSpent() {
+        return totalSpent;
+    }
+
+    public void setTotalSpent(double totalSpent) {
+        this.totalSpent = totalSpent;
+    }
+
+    // Helper methods
+    @Exclude
+    public boolean isClient() {
+        return "client".equalsIgnoreCase(userType);
+    }
+
+    @Exclude
+    public boolean isContractor() {
+        return "contractor".equalsIgnoreCase(userType);
+    }
+}

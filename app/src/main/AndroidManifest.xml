@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+        tools:targetApi="31">
+
+        <!-- Splash Activity (LAUNCHER) -->
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Authentication Activities -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".SignupActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Dashboard Activities -->
+        <activity
+            android:name=".ClientDashboardActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ContractorDashboardActivity"
+            android:exported="false" />
+
+        <!-- Job Management Activities -->
+        <activity
+            android:name=".JobPostActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".ClientDashboardActivity" />
+
+        <activity
+            android:name=".JobDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".ClientDashboardActivity" />
+
+        <activity
+            android:name=".SubmitBidActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".JobDetailActivity" />
+
+        <!-- Contractor Activities -->
+        <activity
+            android:name=".ContractorDirectoryActivity"
+            android:exported="false"
+            android:parentActivityName=".ClientDashboardActivity" />
+
+        <activity
+            android:name=".ContractorProfileActivity"
+            android:exported="false"
+            android:parentActivityName=".ContractorDirectoryActivity" />
+
+        <activity
+            android:name=".PortfolioGalleryActivity"
+            android:exported="false"
+            android:parentActivityName=".ContractorProfileActivity" />
+
+        <activity
+            android:name=".AllReviewsActivity"
+            android:exported="false"
+            android:parentActivityName=".ContractorProfileActivity" />
+
+        <!-- Task Management Activities -->
+        <activity
+            android:name=".TaskListActivity"
+            android:exported="false"
+            android:parentActivityName=".ContractorDashboardActivity" />
+
+        <activity
+            android:name=".AddTaskActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".TaskListActivity" />
+
+        <activity
+            android:name=".TaskDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".TaskListActivity" />
+
+        <!-- Material Management Activities -->
+        <activity
+            android:name=".MaterialManagementActivity"
+            android:exported="false"
+            android:parentActivityName=".ContractorDashboardActivity" />
+
+        <activity
+            android:name=".AddMaterialActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".MaterialManagementActivity" />
+
+        <!-- Communication Activities -->
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".ClientDashboardActivity" />
+
+        <activity
+            android:name=".NotificationsActivity"
+            android:exported="false"
+            android:parentActivityName=".ClientDashboardActivity" />
+
+        <!-- User Management Activities -->
+        <activity
+            android:name=".EditProfileActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+
+        <!-- Google Maps API Key (Optional - Add your key) -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="YOUR_API_KEY_HERE" />
+
+    </application>
+
+</manifest>
