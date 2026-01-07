@@ -1,0 +1,150 @@
+package com.example.madproject.firebase;
+
+import com.example.madproject.models.Bid;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+public class BidManager {
+    private static BidManager instance;
+    private final FirebaseFirestore db;
+    private static final String COLLECTION_NAME = "bids";
+
+    private BidManager() {
+        db = FirebaseFirestore.getInstance();
+    }
+
+    public static synchronized BidManager getInstance() {
+        if (instance == null) {
+            instance = new BidManager();
+        }
+        return instance;
+    }
+
+    // CREATE - Submit new bid
+    public Task<Void> createBid(Bid bid) {
+        return db.collection(COLLECTION_NAME)
+                .document(bid.getBidId())
+                .set(bid);
+    }
+
+    // READ - Get single bid by ID
+    public Task<DocumentSnapshot> getBid(String bidId) {
+        return db.collection(COLLECTION_NAME)
+                .document(bidId)
+                .get();
+    }
+
+    // READ - Get all bids for a job
+    public Task<QuerySnapshot> getBidsByJob(String jobId) {
+        return db.collection(COLLECTION_NAME)
+                .whereEqualTo("jobId", jobId)
+                .orderBy("submittedDate", Query.Direction.DESCENDING)
+                .get();
+    }
+
+    // READ - Get bids by contractor
+    public Task<QuerySnapshot> getBidsByContractor(String contractorId) {
+        return db.collection(COLLECTION_NAME)
+                .whereEqualTo("contractorId", contractorId)
+                .orderBy("submittedDate", Query.Direction.DESCENDING)
+                .get();
+    }
+
+    // READ - Get pending bids for a job
+    public Task<QuerySnapshot> getPendingBidsByJob(String jobId) {
+        return db.collection(COLLECTION_NAME)
+                .whereEqualTo("jobId", jobId)
+                .whereEqualTo("status", "pending")
+                .orderBy("submittedDate", Query.Direction.DESCENDING)
+                .get();
+    }
+
+    // READ - Get accepted bids by contractor
+    public Task<QuerySnapshot> getAcceptedBidsByContractor(String contractorId) {
+        return db.collection(COLLECTION_NAME)
+                .whereEqualTo("contractorId", contractorId)
+                .whereEqualTo("status", "accepted")
+                .get();
+    }
+
+    // READ - Get bids by status
+    public Task<QuerySnapshot> getBidsByStatus(String status) {
+        return db.collection(COLLECTION_NAME)
+                .whereEqualTo("status", status)
+                .orderBy("submittedDate", Query.Direction.DESCENDING)
+                .get();
+    }
+
+    // UPDATE - Update entire bid
+    public Task<Void> updateBid(Bid bid) {
+        return db.collection(COLLECTION_NAME)
+                .document(bid.getBidId())
+                .set(bid);
+    }
+
+    // UPDATE - Update specific field
+    public Task<Void> updateField(String bidId, String field, Object value) {
+        return db.collection(COLLECTION_NAME)
+                .document(bidId)
+                .update(field, value);
+    }
+
+    // UPDATE - Update bid status
+    public Task<Void> updateBidStatus(String bidId, String status) {
+        return updateField(bidId, "status", status);
+    }
+
+    // UPDATE - Accept bid
+    public Task<Void> acceptBid(String bidId) {
+        return updateBidStatus(bidId, "accepted");
+    }
+
+    // UPDATE - Reject bid
+    public Task<Void> rejectBid(String bidId) {
+        return updateBidStatus(bidId, "rejected");
+    }
+
+    // UPDATE - Reject all other bids for a job (when one is accepted)
+    public void rejectOtherBids(String jobId, String acceptedBidId) {
+        db.collection(COLLECTION_NAME)
+                .whereEqualTo("jobId", jobId)
+                .whereEqualTo("status", "pending")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                        String bidId = doc.getId();
+                        if (!bidId.equals(acceptedBidId)) {
+                            rejectBid(bidId);
+                        }
+                    }
+                });
+    }
+
+    // DELETE - Delete bid
+    public Task<Void> deleteBid(String bidId) {
+        return db.collection(COLLECTION_NAME)
+                .document(bidId)
+                .delete();
+    }
+
+    // QUERY - Get lowest bids for a job
+    public Task<QuerySnapshot> getLowestBids(String jobId, int limit) {
+        return db.collection(COLLECTION_NAME)
+                .whereEqualTo("jobId", jobId)
+                .whereEqualTo("status", "pending")
+                .orderBy("bidAmount", Query.Direction.ASCENDING)
+                .limit(limit)
+                .get();
+    }
+
+    // QUERY - Check if contractor has already bid on job
+    public Task<QuerySnapshot> checkExistingBid(String jobId, String contractorId) {
+        return db.collection(COLLECTION_NAME)
+                .whereEqualTo("jobId", jobId)
+                .whereEqualTo("contractorId", contractorId)
+                .get();
+    }
+}
