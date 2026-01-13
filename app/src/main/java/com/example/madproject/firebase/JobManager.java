@@ -48,15 +48,13 @@ public class JobManager {
     public Task<QuerySnapshot> getOpenJobs() {
         return db.collection(COLLECTION_NAME)
                 .whereEqualTo("status", "open")
-                .orderBy("postedDate", Query.Direction.DESCENDING)
                 .get();
     }
 
-    // READ - Get jobs by client
+    // READ - Get jobs by client (FIXED - removed orderBy to avoid index requirement)
     public Task<QuerySnapshot> getJobsByClient(String clientId) {
         return db.collection(COLLECTION_NAME)
                 .whereEqualTo("clientId", clientId)
-                .orderBy("postedDate", Query.Direction.DESCENDING)
                 .get();
     }
 
@@ -64,7 +62,6 @@ public class JobManager {
     public Task<QuerySnapshot> getJobsByContractor(String contractorId) {
         return db.collection(COLLECTION_NAME)
                 .whereEqualTo("assignedContractorId", contractorId)
-                .orderBy("postedDate", Query.Direction.DESCENDING)
                 .get();
     }
 
@@ -73,7 +70,6 @@ public class JobManager {
         return db.collection(COLLECTION_NAME)
                 .whereEqualTo("category", category)
                 .whereEqualTo("status", "open")
-                .orderBy("postedDate", Query.Direction.DESCENDING)
                 .get();
     }
 
@@ -81,7 +77,6 @@ public class JobManager {
     public Task<QuerySnapshot> getJobsByStatus(String status) {
         return db.collection(COLLECTION_NAME)
                 .whereEqualTo("status", status)
-                .orderBy("postedDate", Query.Direction.DESCENDING)
                 .get();
     }
 
@@ -90,7 +85,6 @@ public class JobManager {
         return db.collection(COLLECTION_NAME)
                 .whereEqualTo("clientId", clientId)
                 .whereEqualTo("status", status)
-                .orderBy("postedDate", Query.Direction.DESCENDING)
                 .get();
     }
 

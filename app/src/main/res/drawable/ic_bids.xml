@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Gavel/Hammer icon representing bids -->
+    <path
+        android:fillColor="#757575"
+        android:pathData="M1,21h12v2H1V21z M5.24,8.07l2.83,-2.83l-2.83,-2.83l-1.41,1.41L5.66,5.66L4.24,7.07L5.24,8.07z M12.32,1l5.66,5.66l-2.83,2.83l-5.66,-5.66L12.32,1z M3.83,9.48l2.83,2.83l1.41,-1.41l-2.83,-2.83L3.83,9.48z M14.14,7.46l5.66,5.66l-8.49,8.49l-5.66,-5.66L14.14,7.46z M23,17.78l-1.41,1.41l-3.54,-3.54l1.41,-1.41L23,17.78z" />
+</vector>

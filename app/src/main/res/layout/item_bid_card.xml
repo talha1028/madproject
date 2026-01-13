@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
@@ -14,136 +15,85 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Contractor Profile Image -->
+        <!-- Contractor Photo -->
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ivContractorImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/ic_default_profile"
+            android:id="@+id/ivContractorPhoto"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_person_placeholder"
             app:civ_border_width="2dp"
-            app:civ_border_color="#7C4DFF"
+            app:civ_border_color="#E0E0E0"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <!-- Verified Badge -->
-        <ImageView
-            android:id="@+id/ivVerified"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_verified"
-            app:layout_constraintBottom_toBottomOf="@id/ivContractorImage"
-            app:layout_constraintEnd_toEndOf="@id/ivContractorImage" />
 
         <!-- Contractor Name -->
         <TextView
             android:id="@+id/tvContractorName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Ahmad Ali"
+            android:text="Ali Hassan"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="#212121"
-            android:layout_marginStart="12dp"
             android:maxLines="1"
             android:ellipsize="end"
-            app:layout_constraintTop_toTopOf="@id/ivContractorImage"
-            app:layout_constraintStart_toEndOf="@id/ivContractorImage"
-            app:layout_constraintEnd_toStartOf="@id/tvBidAmount" />
-
-        <!-- Category -->
-        <TextView
-            android:id="@+id/tvCategory"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Professional Electrician"
-            android:textSize="13sp"
-            android:textColor="#7C4DFF"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintTop_toBottomOf="@id/tvContractorName"
-            app:layout_constraintStart_toEndOf="@id/ivContractorImage"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/ivContractorPhoto"
+            app:layout_constraintStart_toEndOf="@id/ivContractorPhoto"
+            app:layout_constraintEnd_toStartOf="@id/tvBidStatus" />
 
-        <!-- Rating -->
-        <LinearLayout
-            android:id="@+id/ratingLayout"
+        <!-- Contractor Category -->
+        <TextView
+            android:id="@+id/tvContractorCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintTop_toBottomOf="@id/tvCategory"
-            app:layout_constraintStart_toEndOf="@id/ivContractorImage">
+            android:text="Electrician"
+            android:textSize="13sp"
+            android:textColor="#7C4DFF"
+            app:layout_constraintTop_toBottomOf="@id/tvContractorName"
+            app:layout_constraintStart_toStartOf="@id/tvContractorName" />
 
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:src="@drawable/ic_star"
-                app:tint="#FFA726" />
+        <!-- Rating & Completed Projects -->
+        <LinearLayout
+            android:id="@+id/layoutInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp"
+            app:layout_constraintTop_toBottomOf="@id/tvContractorCategory"
+            app:layout_constraintStart_toStartOf="@id/tvContractorName"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
                 android:id="@+id/tvRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4.8"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:textColor="#212121"
-                android:layout_marginStart="4dp" />
-
-            <TextView
-                android:id="@+id/tvReviews"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(24)"
+                android:text="⭐ 4.5"
                 android:textSize="12sp"
-                android:textColor="#757575"
-                android:layout_marginStart="2dp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="12dp"
-                android:background="#E0E0E0"
-                android:layout_marginStart="12dp"
+                android:textColor="#FFA726"
                 android:layout_marginEnd="12dp" />
 
             <TextView
-                android:id="@+id/tvExperience"
+                android:id="@+id/tvCompletedProjects"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5 years"
+                android:text="15 projects completed"
                 android:textSize="12sp"
                 android:textColor="#757575" />
         </LinearLayout>
 
-        <!-- Bid Amount (Right Side) -->
-        <LinearLayout
-            android:id="@+id/bidAmountLayout"
+        <!-- Bid Status Badge -->
+        <TextView
+            android:id="@+id/tvBidStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="end"
-            app:layout_constraintTop_toTopOf="@id/ivContractorImage"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bid Amount"
-                android:textSize="11sp"
-                android:textColor="#757575" />
-
-            <TextView
-                android:id="@+id/tvBidAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rs. 45,000"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#7C4DFF"
-                android:layout_marginTop="2dp" />
-        </LinearLayout>
+            android:text="ACCEPTED"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="#4CAF50"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/tvContractorName"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Divider -->
         <View
@@ -152,98 +102,158 @@
             android:layout_height="1dp"
             android:background="#E0E0E0"
             android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/ivContractorImage" />
+            app:layout_constraintTop_toBottomOf="@id/layoutInfo" />
 
-        <!-- Proposal Text -->
-        <TextView
-            android:id="@+id/tvProposal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="I have 5+ years of experience in residential electrical work. Can complete the job within the specified timeline with quality assurance."
-            android:textSize="14sp"
-            android:textColor="#424242"
-            android:maxLines="3"
-            android:ellipsize="end"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/divider" />
-
-        <!-- Bottom Info Row -->
+        <!-- Bid Amount & Completion Days -->
         <LinearLayout
-            android:id="@+id/bottomInfoLayout"
+            android:id="@+id/layoutBidInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:weightSum="2"
             android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/tvProposal">
+            app:layout_constraintTop_toBottomOf="@id/divider">
+
+            <!-- Bid Amount -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bid Amount"
+                    android:textSize="12sp"
+                    android:textColor="#757575" />
+
+                <TextView
+                    android:id="@+id/tvBidAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. 45,000"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#7C4DFF"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
 
             <!-- Completion Days -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:orientation="vertical"
+                android:gravity="end">
 
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_time"
-                    app:tint="#FFA726" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Completion Time"
+                    android:textSize="12sp"
+                    android:textColor="#757575" />
 
                 <TextView
                     android:id="@+id/tvCompletionDays"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5 days"
-                    android:textSize="13sp"
-                    android:textColor="#757575"
-                    android:layout_marginStart="6dp" />
+                    android:text="7 days"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFA726"
+                    android:layout_marginTop="4dp" />
             </LinearLayout>
-
-            <!-- Bid Submitted Time -->
-            <TextView
-                android:id="@+id/tvBidTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2h ago"
-                android:textSize="12sp"
-                android:textColor="#9E9E9E" />
         </LinearLayout>
+
+        <!-- Proposal -->
+        <TextView
+            android:id="@+id/tvProposal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="I have 10 years of experience in electrical work. I can complete this project with high quality..."
+            android:textSize="14sp"
+            android:textColor="#424242"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/layoutBidInfo" />
+
+        <!-- Submitted Date -->
+        <TextView
+            android:id="@+id/tvSubmittedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submitted 2 hours ago"
+            android:textSize="12sp"
+            android:textColor="#9E9E9E"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/tvProposal"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!-- Action Buttons -->
         <LinearLayout
+            android:id="@+id/layoutButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/bottomInfoLayout">
+            android:weightSum="4"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/tvSubmittedDate">
+
+            <!-- Accept Button -->
+            <Button
+                android:id="@+id/btnAccept"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:text="Accept"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_button_green"
+                android:layout_marginEnd="4dp" />
+
+            <!-- Reject Button -->
+            <Button
+                android:id="@+id/btnReject"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:text="Reject"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_button_red"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp" />
 
             <!-- View Profile Button -->
             <Button
                 android:id="@+id/btnViewProfile"
                 android:layout_width="0dp"
-                android:layout_height="44dp"
+                android:layout_height="42dp"
                 android:layout_weight="1"
-                android:text="View Profile"
+                android:text="Profile"
                 android:textAllCaps="false"
-                android:textSize="14sp"
-                android:backgroundTint="#EEEEEE"
-                android:textColor="#212121"
-                android:layout_marginEnd="8dp"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                android:textSize="13sp"
+                android:textColor="#7C4DFF"
+                android:background="@drawable/bg_button_outline"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp" />
 
-            <!-- Accept Bid Button -->
+            <!-- Contact Button -->
             <Button
-                android:id="@+id/btnAcceptBid"
+                android:id="@+id/btnContact"
                 android:layout_width="0dp"
-                android:layout_height="44dp"
+                android:layout_height="42dp"
                 android:layout_weight="1"
-                android:text="Accept Bid"
+                android:text="Chat"
                 android:textAllCaps="false"
-                android:textSize="14sp"
-                android:backgroundTint="#7C4DFF"
-                android:layout_marginStart="8dp" />
+                android:textSize="13sp"
+                android:textColor="#7C4DFF"
+                android:background="@drawable/bg_button_outline"
+                android:layout_marginStart="4dp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

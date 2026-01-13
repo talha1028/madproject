@@ -69,6 +69,12 @@
             android:exported="false"
             android:parentActivityName=".ClientDashboardActivity" />
 
+        <!-- NEW: Client Jobs List Activity -->
+        <activity
+            android:name=".MyJobsActivity"
+            android:exported="false"
+            android:parentActivityName=".ClientDashboardActivity" />
+
         <activity
             android:name=".SubmitBidActivity"
             android:exported="false"
@@ -95,6 +101,18 @@
             android:name=".AllReviewsActivity"
             android:exported="false"
             android:parentActivityName=".ContractorProfileActivity" />
+
+        <!-- NEW: Contractor Available Jobs Activity -->
+        <activity
+            android:name=".AvailableJobsActivity"
+            android:exported="false"
+            android:parentActivityName=".ContractorDashboardActivity" />
+
+        <!-- NEW: Contractor Projects Activity -->
+        <activity
+            android:name=".MyProjectsActivity"
+            android:exported="false"
+            android:parentActivityName=".ContractorDashboardActivity" />
 
         <!-- Task Management Activities -->
         <activity
