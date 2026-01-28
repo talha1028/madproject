@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +36,7 @@ public class JobDetailActivity extends AppCompatActivity {
     private RecyclerView rvBids;
     private LinearLayout emptyState;
     private ImageView btnEdit, btnShare;
+    private Button btnSubmitBid;
     private ProgressBar progressBar;
 
     private FirebaseAuth mAuth;
@@ -92,6 +94,7 @@ public class JobDetailActivity extends AppCompatActivity {
         btnEdit = findViewById(R.id.btnEdit);
         btnShare = findViewById(R.id.btnShare);
         btnSortBids = findViewById(R.id.btnSortBids);
+        btnSubmitBid = findViewById(R.id.btnSubmitBid);
 
         // Create ProgressBar programmatically
         progressBar = new ProgressBar(this);
@@ -130,6 +133,10 @@ public class JobDetailActivity extends AppCompatActivity {
         btnEdit.setOnClickListener(v -> editJob());
         btnShare.setOnClickListener(v -> shareJob());
         btnSortBids.setOnClickListener(v -> showSortDialog());
+
+        if (btnSubmitBid != null) {
+            btnSubmitBid.setOnClickListener(v -> submitBid());
+        }
     }
 
     private void loadJobDetails() {
@@ -187,9 +194,26 @@ public class JobDetailActivity extends AppCompatActivity {
         // Set location
         tvLocation.setText(job.getLocation());
 
-        // Hide edit button if not job owner
-        if (!currentUserId.equals(job.getClientId())) {
+        // Show/hide buttons based on user role
+        boolean isJobOwner = currentUserId.equals(job.getClientId());
+
+        if (isJobOwner) {
+            // Client view: show edit, hide submit bid
+            btnEdit.setVisibility(View.VISIBLE);
+            if (btnSubmitBid != null) {
+                btnSubmitBid.setVisibility(View.GONE);
+            }
+        } else {
+            // Contractor view: hide edit, show submit bid
             btnEdit.setVisibility(View.GONE);
+            if (btnSubmitBid != null) {
+                // Only show submit bid button if job is still open
+                if ("open".equals(job.getStatus())) {
+                    btnSubmitBid.setVisibility(View.VISIBLE);
+                } else {
+                    btnSubmitBid.setVisibility(View.GONE);
+                }
+            }
         }
     }
 
@@ -371,6 +395,21 @@ public class JobDetailActivity extends AppCompatActivity {
         // Intent intent = new Intent(this, JobEditActivity.class);
         // intent.putExtra("jobId", jobId);
         // startActivity(intent);
+    }
+
+    private void submitBid() {
+        if (currentJob == null) return;
+
+        // Check if job is still open
+        if (!"open".equals(currentJob.getStatus())) {
+            Toast.makeText(this, "This job is no longer accepting bids", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Navigate to SubmitBidActivity
+        Intent intent = new Intent(this, SubmitBidActivity.class);
+        intent.putExtra("jobId", jobId);
+        startActivity(intent);
     }
 
     private void shareJob() {

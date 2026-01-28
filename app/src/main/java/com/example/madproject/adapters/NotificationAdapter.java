@@ -85,7 +85,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         int iconRes;
         switch (type.toLowerCase()) {
             case "job":
-                iconRes = R.drawable.ic_jo;
+                iconRes = R.drawable.ic_job;
                 break;
             case "bid":
                 iconRes = R.drawable.ic_bid;

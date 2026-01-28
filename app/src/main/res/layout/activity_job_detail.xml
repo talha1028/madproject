@@ -337,4 +337,22 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <!-- Submit Bid Button (Visible for Contractors) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSubmitBid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="16dp"
+        android:text="Submit Bid"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#7C4DFF"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        app:cornerRadius="12dp"
+        app:elevation="4dp"
+        android:visibility="gone" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

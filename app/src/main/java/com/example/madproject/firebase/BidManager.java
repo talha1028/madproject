@@ -41,7 +41,6 @@ public class BidManager {
     public Task<QuerySnapshot> getBidsByJob(String jobId) {
         return db.collection(COLLECTION_NAME)
                 .whereEqualTo("jobId", jobId)
-                .orderBy("submittedDate", Query.Direction.DESCENDING)
                 .get();
     }
 
@@ -49,7 +48,6 @@ public class BidManager {
     public Task<QuerySnapshot> getBidsByContractor(String contractorId) {
         return db.collection(COLLECTION_NAME)
                 .whereEqualTo("contractorId", contractorId)
-                .orderBy("submittedDate", Query.Direction.DESCENDING)
                 .get();
     }
 
@@ -58,7 +56,6 @@ public class BidManager {
         return db.collection(COLLECTION_NAME)
                 .whereEqualTo("jobId", jobId)
                 .whereEqualTo("status", "pending")
-                .orderBy("submittedDate", Query.Direction.DESCENDING)
                 .get();
     }
 
@@ -74,7 +71,6 @@ public class BidManager {
     public Task<QuerySnapshot> getBidsByStatus(String status) {
         return db.collection(COLLECTION_NAME)
                 .whereEqualTo("status", status)
-                .orderBy("submittedDate", Query.Direction.DESCENDING)
                 .get();
     }
 
@@ -130,13 +126,11 @@ public class BidManager {
                 .delete();
     }
 
-    // QUERY - Get lowest bids for a job
+    // QUERY - Get lowest bids for a job (sort in memory after fetching)
     public Task<QuerySnapshot> getLowestBids(String jobId, int limit) {
         return db.collection(COLLECTION_NAME)
                 .whereEqualTo("jobId", jobId)
                 .whereEqualTo("status", "pending")
-                .orderBy("bidAmount", Query.Direction.ASCENDING)
-                .limit(limit)
                 .get();
     }
 

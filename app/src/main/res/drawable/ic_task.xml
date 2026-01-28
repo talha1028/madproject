@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Task/Checklist Icon -->
+    <path
+        android:fillColor="#7C4DFF"
+        android:pathData="M22,5.18L10.59,16.6l-4.24,-4.24l1.41,-1.41l2.83,2.83l10,-10L22,5.18zM19.79,10.22C19.92,10.79 20,11.39 20,12c0,4.42 -3.58,8 -8,8s-8,-3.58 -8,-8s3.58,-8 8,-8c0.61,0 1.21,0.08 1.78,0.22L15.47,2.5C14.37,2.18 13.2,2 12,2C6.48,2 2,6.48 2,12s4.48,10 10,10s10,-4.48 10,-10c0,-1.2 -0.18,-2.37 -0.5,-3.47L19.79,10.22z"/>
+</vector>
