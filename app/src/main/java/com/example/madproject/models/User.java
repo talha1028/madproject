@@ -2,6 +2,9 @@ package com.example.madproject.models;
 
 import com.google.firebase.firestore.Exclude;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private String userId;
     private String email;
@@ -22,6 +25,7 @@ public class User {
     private double rating;
     private int totalReviews;
     private int completedProjects;
+    private List<String> portfolioImages; // URLs of portfolio images
 
     // Client-specific fields (null for contractors)
     private int activeJobs;
@@ -30,6 +34,7 @@ public class User {
 
     // Required empty constructor for Firestore
     public User() {
+        this.portfolioImages = new ArrayList<>();
     }
 
     // Constructor for Client
@@ -184,6 +189,14 @@ public class User {
 
     public void setCompletedProjects(int completedProjects) {
         this.completedProjects = completedProjects;
+    }
+
+    public List<String> getPortfolioImages() {
+        return portfolioImages != null ? portfolioImages : new ArrayList<>();
+    }
+
+    public void setPortfolioImages(List<String> portfolioImages) {
+        this.portfolioImages = portfolioImages;
     }
 
     public int getActiveJobs() {

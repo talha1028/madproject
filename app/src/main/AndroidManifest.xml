@@ -150,6 +150,13 @@
             android:windowSoftInputMode="adjustResize"
             android:parentActivityName=".ClientDashboardActivity" />
 
+        <!-- ⭐ AI Chat Activity (NEW) ⭐ -->
+        <activity
+            android:name=".AIChatActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".ClientDashboardActivity" />
+
         <activity
             android:name=".NotificationsActivity"
             android:exported="false"

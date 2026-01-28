@@ -21,6 +21,7 @@ import com.example.madproject.firebase.UserManager;
 import com.example.madproject.models.Job;
 import com.example.madproject.models.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -43,6 +44,7 @@ public class ContractorDashboardActivity extends AppCompatActivity {
     private RecyclerView rvAvailableJobs;
     private LinearLayout emptyState;
     private BottomNavigationView bottomNav;
+    private FloatingActionButton fabAIChat;
     private ProgressBar progressBar;
 
     private FirebaseAuth mAuth;
@@ -99,6 +101,7 @@ public class ContractorDashboardActivity extends AppCompatActivity {
         btnViewProfile = findViewById(R.id.btnViewProfile);
         rvAvailableJobs = findViewById(R.id.rvAvailableJobs);
         bottomNav = findViewById(R.id.bottomNav);
+        fabAIChat = findViewById(R.id.fabAIChat);
 
         // Create ProgressBar programmatically
         progressBar = new ProgressBar(this);
@@ -123,6 +126,11 @@ public class ContractorDashboardActivity extends AppCompatActivity {
     }
 
     private void setupClickListeners() {
+        // AI Assistant FAB Button
+        fabAIChat.setOnClickListener(v -> {
+            startActivity(new Intent(ContractorDashboardActivity.this, AIChatActivity.class));
+        });
+
         // Notifications Button
         btnNotifications.setOnClickListener(v -> {
             startActivity(new Intent(ContractorDashboardActivity.this, NotificationsActivity.class));

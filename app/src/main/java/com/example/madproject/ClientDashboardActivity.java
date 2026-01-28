@@ -21,6 +21,7 @@ import com.example.madproject.firebase.UserManager;
 import com.example.madproject.models.Job;
 import com.example.madproject.models.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -38,6 +39,7 @@ public class ClientDashboardActivity extends AppCompatActivity {
     private LinearLayout emptyState;
     private CardView btnPostJob, cardFindContractors;
     private BottomNavigationView bottomNavigation;
+    private FloatingActionButton fabAIChat;
     private ProgressBar progressBar;
 
     private FirebaseAuth mAuth;
@@ -90,6 +92,7 @@ public class ClientDashboardActivity extends AppCompatActivity {
         btnPostJob = findViewById(R.id.btnPostJob);
         cardFindContractors = findViewById(R.id.cardFindContractors);
         bottomNavigation = findViewById(R.id.bottomNavigation);
+        fabAIChat = findViewById(R.id.fabAIChat);
 
         // Create ProgressBar programmatically if not in XML
         progressBar = new ProgressBar(this);
@@ -97,6 +100,10 @@ public class ClientDashboardActivity extends AppCompatActivity {
 
         // Set home as selected
         bottomNavigation.setSelectedItemId(R.id.nav_home);
+        Log.d(TAG, "fabAIChat = " + fabAIChat);
+        Log.d(TAG, "btnNotifications = " + btnNotifications);
+        Log.d(TAG, "bottomNavigation = " + bottomNavigation);
+
     }
 
     private void setupRecyclerView() {
@@ -114,6 +121,11 @@ public class ClientDashboardActivity extends AppCompatActivity {
     }
 
     private void setupClickListeners() {
+        // AI Assistant FAB Button
+        fabAIChat.setOnClickListener(v -> {
+            startActivity(new Intent(ClientDashboardActivity.this, AIChatActivity.class));
+        });
+
         // Notifications Button
         btnNotifications.setOnClickListener(v -> {
             startActivity(new Intent(ClientDashboardActivity.this, NotificationsActivity.class));
@@ -129,7 +141,7 @@ public class ClientDashboardActivity extends AppCompatActivity {
             startActivity(new Intent(ClientDashboardActivity.this, ContractorDirectoryActivity.class));
         });
 
-         View All Jobs
+        // View All Jobs
         tvViewAllJobs.setOnClickListener(v -> {
             Intent intent = new Intent(ClientDashboardActivity.this, MyJobsActivity.class);
             startActivity(intent);
@@ -146,7 +158,6 @@ public class ClientDashboardActivity extends AppCompatActivity {
                 startActivity(new Intent(ClientDashboardActivity.this, MyJobsActivity.class));
                 return true;
             }
-//
             else if (id == R.id.nav_find) {
                 startActivity(new Intent(ClientDashboardActivity.this, ContractorDirectoryActivity.class));
                 return true;
@@ -279,7 +290,6 @@ public class ClientDashboardActivity extends AppCompatActivity {
             // Show progress indicator
         } else {
             Log.d(TAG, "Hiding loading state");
-
         }
     }
 
