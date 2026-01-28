@@ -3,6 +3,7 @@ package com.example.madproject.firebase;
 import com.example.madproject.models.Job;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -107,20 +108,11 @@ public class JobManager {
         return updateField(jobId, "status", status);
     }
 
-    // UPDATE - Increment total bids
-    public void incrementTotalBids(String jobId) {
-        db.collection(COLLECTION_NAME)
+    // UPDATE - Increment total bids (using atomic increment)
+    public Task<Void> incrementTotalBids(String jobId) {
+        return db.collection(COLLECTION_NAME)
                 .document(jobId)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        Job job = documentSnapshot.toObject(Job.class);
-                        if (job != null) {
-                            job.setTotalBids(job.getTotalBids() + 1);
-                            updateJob(job);
-                        }
-                    }
-                });
+                .update("totalBids", FieldValue.increment(1));
     }
 
     // UPDATE - Assign contractor to job

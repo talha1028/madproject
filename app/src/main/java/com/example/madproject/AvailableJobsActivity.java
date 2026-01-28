@@ -63,6 +63,13 @@ public class AvailableJobsActivity extends AppCompatActivity {
         loadOpenJobs();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Refresh jobs when returning to this activity (e.g., after submitting a bid)
+        loadOpenJobs();
+    }
+
     private void initViews() {
         toolbar = findViewById(R.id.toolbar);
         etSearch = findViewById(R.id.etSearch);

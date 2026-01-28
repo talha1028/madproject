@@ -12,9 +12,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.madproject.firebase.BidManager;
 import com.example.madproject.firebase.JobManager;
+import com.example.madproject.firebase.NotificationManager;
 import com.example.madproject.firebase.UserManager;
 import com.example.madproject.models.Bid;
 import com.example.madproject.models.Job;
+import com.example.madproject.models.Notification;
 import com.example.madproject.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -162,12 +164,27 @@ public class SubmitBidActivity extends AppCompatActivity {
                                 .createBid(bid)
                                 .addOnSuccessListener(aVoid -> {
                                     // Increment job's totalBids
-                                    JobManager.getInstance().incrementTotalBids(jobId);
+                                    JobManager.getInstance()
+                                            .incrementTotalBids(jobId)
+                                            .addOnSuccessListener(aVoid2 -> {
+                                                // Send notification to job owner
+                                                sendBidNotification(contractor, bid);
 
-                                    showLoading(false);
-                                    Toast.makeText(SubmitBidActivity.this,
-                                            "Bid submitted successfully!", Toast.LENGTH_SHORT).show();
-                                    finish();
+                                                showLoading(false);
+                                                Toast.makeText(SubmitBidActivity.this,
+                                                        "Bid submitted successfully!", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                // Bid was created but counter update failed - still finish
+                                                // Send notification anyway
+                                                sendBidNotification(contractor, bid);
+
+                                                showLoading(false);
+                                                Toast.makeText(SubmitBidActivity.this,
+                                                        "Bid submitted successfully!", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            });
                                 })
                                 .addOnFailureListener(e -> {
                                     showLoading(false);
@@ -184,6 +201,49 @@ public class SubmitBidActivity extends AppCompatActivity {
                                 "Error loading profile: " + error, Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void sendBidNotification(User contractor, Bid bid) {
+        if (job == null || job.getClientId() == null) {
+            return; // Can't send notification without job owner info
+        }
+
+        // Create notification for job owner
+        String notificationId = "notif_" + UUID.randomUUID().toString();
+        String title = "New Bid Received";
+        String message = contractor.getFullName() + " submitted a bid of Rs. " +
+                formatCurrency(bid.getBidAmount()) + " on your job \"" + job.getTitle() + "\"";
+
+        Notification notification = new Notification(
+                notificationId,
+                job.getClientId(), // Send to job owner
+                title,
+                message,
+                "bid",
+                jobId // Store jobId so they can navigate to job details
+        );
+
+        // Send notification
+        NotificationManager.getInstance()
+                .createNotification(notification)
+                .addOnSuccessListener(aVoid -> {
+                    // Notification sent successfully (silent - no user feedback needed)
+                })
+                .addOnFailureListener(e -> {
+                    // Failed to send notification (silent - don't interrupt user flow)
+                });
+    }
+
+    private String formatCurrency(double amount) {
+        if (amount >= 10000000) {
+            return String.format("%.1f Cr", amount / 10000000);
+        } else if (amount >= 100000) {
+            return String.format("%.1f L", amount / 100000);
+        } else if (amount >= 1000) {
+            return String.format("%.1f K", amount / 1000);
+        } else {
+            return String.format("%.0f", amount);
+        }
     }
 
     private void showLoading(boolean show) {

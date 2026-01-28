@@ -37,29 +37,26 @@ public class NotificationManager {
                 .get();
     }
 
-    // READ - Get all notifications for user
+    // READ - Get all notifications for user (sort in memory after fetching)
     public Task<QuerySnapshot> getNotificationsByUser(String userId) {
         return db.collection(COLLECTION_NAME)
                 .whereEqualTo("userId", userId)
-                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get();
     }
 
-    // READ - Get unread notifications
+    // READ - Get unread notifications (sort in memory after fetching)
     public Task<QuerySnapshot> getUnreadNotifications(String userId) {
         return db.collection(COLLECTION_NAME)
                 .whereEqualTo("userId", userId)
                 .whereEqualTo("isRead", false)
-                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get();
     }
 
-    // READ - Get notifications by type
+    // READ - Get notifications by type (sort in memory after fetching)
     public Task<QuerySnapshot> getNotificationsByType(String userId, String type) {
         return db.collection(COLLECTION_NAME)
                 .whereEqualTo("userId", userId)
                 .whereEqualTo("type", type)
-                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get();
     }
 
@@ -116,11 +113,10 @@ public class NotificationManager {
                 });
     }
 
-    // REAL-TIME - Listen to notifications
-    public void listenToNotifications(String userId, OnNotificationsChangedListener listener) {
-        db.collection(COLLECTION_NAME)
+    // REAL-TIME - Listen to notifications (sort in memory after fetching)
+    public com.google.firebase.firestore.ListenerRegistration listenToNotifications(String userId, OnNotificationsChangedListener listener) {
+        return db.collection(COLLECTION_NAME)
                 .whereEqualTo("userId", userId)
-                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         listener.onError(error.getMessage());

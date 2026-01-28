@@ -14,6 +14,7 @@ public class User {
     private String city;
     private String userType; // "client" or "contractor"
     private String profilePictureUrl;
+    private String fcmToken; // Firebase Cloud Messaging token for push notifications
     private long createdAt;
     private long lastLogin;
 
@@ -117,6 +118,14 @@ public class User {
 
     public void setProfilePictureUrl(String profilePictureUrl) {
         this.profilePictureUrl = profilePictureUrl;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 
     public long getCreatedAt() {

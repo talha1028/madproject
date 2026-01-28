@@ -47,6 +47,7 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:34.7.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-messaging")
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.google.ai.client.generativeai:generativeai:0.1.2")
     implementation("com.google.guava:guava:31.1-android")

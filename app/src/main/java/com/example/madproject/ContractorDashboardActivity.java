@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.madproject.adapters.JobAdapter;
 import com.example.madproject.firebase.JobManager;
 import com.example.madproject.firebase.UserManager;
+import com.example.madproject.helpers.FCMHelper;
 import com.example.madproject.models.Job;
 import com.example.madproject.models.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -77,6 +78,9 @@ public class ContractorDashboardActivity extends AppCompatActivity {
         // Load data
         loadContractorData();
         loadAvailableJobs();
+
+        // Register FCM token for push notifications
+        FCMHelper.registerFCMToken();
     }
 
     @Override
